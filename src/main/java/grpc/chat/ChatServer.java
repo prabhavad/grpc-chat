@@ -140,7 +140,6 @@ public class ChatServer {
 
                 public void onNext(Request request) {
                     String requestType = request.getRequestType();
-                    System.out.println(requestType);
                     if (requestType.equals("login")) {
                         login(request, responseObserver);
                     } else if (requestType.equals("send")) {
