@@ -22,7 +22,7 @@ public class ChatService extends ChatServerGrpc.ChatServerImplBase {
 
     private void login(Request request, StreamObserver<Response> responseObserver) {
 
-
+        System.out.println("Login Request Here !!");
         if (redisRepo.isValidCredential(request.getUserName(), request.getPassword())) {
 
             String token = JWTService.getJwtService().getJWT(request.getUserName());
