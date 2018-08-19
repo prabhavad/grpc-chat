@@ -1,6 +1,5 @@
 FROM java:8
+FROM redis
 COPY . .
-RUN apt-get update
-RUN apt-get install --assume-yes maven
-RUN mvn clean compile
-CMD mvn exec:java -Dexec.mainClass="grpc.chat.ChatClient"
+EXPOSE 6379
+CMD ["redis-server"]

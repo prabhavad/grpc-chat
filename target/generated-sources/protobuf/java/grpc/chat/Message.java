@@ -16,7 +16,8 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private Message() {
-    senderUserName_ = "";
+    to_ = "";
+    from_ = "";
     messageText_ = "";
   }
 
@@ -54,10 +55,16 @@ private static final long serialVersionUID = 0L;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            senderUserName_ = s;
+            to_ = s;
             break;
           }
           case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            from_ = s;
+            break;
+          }
+          case 26: {
             java.lang.String s = input.readStringRequireUtf8();
 
             messageText_ = s;
@@ -87,44 +94,78 @@ private static final long serialVersionUID = 0L;
             grpc.chat.Message.class, grpc.chat.Message.Builder.class);
   }
 
-  public static final int SENDERUSERNAME_FIELD_NUMBER = 1;
-  private volatile java.lang.Object senderUserName_;
+  public static final int TO_FIELD_NUMBER = 1;
+  private volatile java.lang.Object to_;
   /**
-   * <code>string senderUserName = 1;</code>
+   * <code>string to = 1;</code>
    */
-  public java.lang.String getSenderUserName() {
-    java.lang.Object ref = senderUserName_;
+  public java.lang.String getTo() {
+    java.lang.Object ref = to_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      senderUserName_ = s;
+      to_ = s;
       return s;
     }
   }
   /**
-   * <code>string senderUserName = 1;</code>
+   * <code>string to = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getSenderUserNameBytes() {
-    java.lang.Object ref = senderUserName_;
+      getToBytes() {
+    java.lang.Object ref = to_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      senderUserName_ = b;
+      to_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
   }
 
-  public static final int MESSAGETEXT_FIELD_NUMBER = 2;
+  public static final int FROM_FIELD_NUMBER = 2;
+  private volatile java.lang.Object from_;
+  /**
+   * <code>string from = 2;</code>
+   */
+  public java.lang.String getFrom() {
+    java.lang.Object ref = from_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      from_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string from = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getFromBytes() {
+    java.lang.Object ref = from_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      from_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int MESSAGETEXT_FIELD_NUMBER = 3;
   private volatile java.lang.Object messageText_;
   /**
-   * <code>string messageText = 2;</code>
+   * <code>string messageText = 3;</code>
    */
   public java.lang.String getMessageText() {
     java.lang.Object ref = messageText_;
@@ -139,7 +180,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string messageText = 2;</code>
+   * <code>string messageText = 3;</code>
    */
   public com.google.protobuf.ByteString
       getMessageTextBytes() {
@@ -167,11 +208,14 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getSenderUserNameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, senderUserName_);
+    if (!getToBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, to_);
+    }
+    if (!getFromBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, from_);
     }
     if (!getMessageTextBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, messageText_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, messageText_);
     }
     unknownFields.writeTo(output);
   }
@@ -181,11 +225,14 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getSenderUserNameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, senderUserName_);
+    if (!getToBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, to_);
+    }
+    if (!getFromBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, from_);
     }
     if (!getMessageTextBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, messageText_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, messageText_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -203,8 +250,10 @@ private static final long serialVersionUID = 0L;
     grpc.chat.Message other = (grpc.chat.Message) obj;
 
     boolean result = true;
-    result = result && getSenderUserName()
-        .equals(other.getSenderUserName());
+    result = result && getTo()
+        .equals(other.getTo());
+    result = result && getFrom()
+        .equals(other.getFrom());
     result = result && getMessageText()
         .equals(other.getMessageText());
     result = result && unknownFields.equals(other.unknownFields);
@@ -218,8 +267,10 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + SENDERUSERNAME_FIELD_NUMBER;
-    hash = (53 * hash) + getSenderUserName().hashCode();
+    hash = (37 * hash) + TO_FIELD_NUMBER;
+    hash = (53 * hash) + getTo().hashCode();
+    hash = (37 * hash) + FROM_FIELD_NUMBER;
+    hash = (53 * hash) + getFrom().hashCode();
     hash = (37 * hash) + MESSAGETEXT_FIELD_NUMBER;
     hash = (53 * hash) + getMessageText().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -351,7 +402,9 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
-      senderUserName_ = "";
+      to_ = "";
+
+      from_ = "";
 
       messageText_ = "";
 
@@ -377,7 +430,8 @@ private static final long serialVersionUID = 0L;
 
     public grpc.chat.Message buildPartial() {
       grpc.chat.Message result = new grpc.chat.Message(this);
-      result.senderUserName_ = senderUserName_;
+      result.to_ = to_;
+      result.from_ = from_;
       result.messageText_ = messageText_;
       onBuilt();
       return result;
@@ -420,8 +474,12 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(grpc.chat.Message other) {
       if (other == grpc.chat.Message.getDefaultInstance()) return this;
-      if (!other.getSenderUserName().isEmpty()) {
-        senderUserName_ = other.senderUserName_;
+      if (!other.getTo().isEmpty()) {
+        to_ = other.to_;
+        onChanged();
+      }
+      if (!other.getFrom().isEmpty()) {
+        from_ = other.from_;
         onChanged();
       }
       if (!other.getMessageText().isEmpty()) {
@@ -455,78 +513,147 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object senderUserName_ = "";
+    private java.lang.Object to_ = "";
     /**
-     * <code>string senderUserName = 1;</code>
+     * <code>string to = 1;</code>
      */
-    public java.lang.String getSenderUserName() {
-      java.lang.Object ref = senderUserName_;
+    public java.lang.String getTo() {
+      java.lang.Object ref = to_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        senderUserName_ = s;
+        to_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string senderUserName = 1;</code>
+     * <code>string to = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getSenderUserNameBytes() {
-      java.lang.Object ref = senderUserName_;
+        getToBytes() {
+      java.lang.Object ref = to_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        senderUserName_ = b;
+        to_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string senderUserName = 1;</code>
+     * <code>string to = 1;</code>
      */
-    public Builder setSenderUserName(
+    public Builder setTo(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      senderUserName_ = value;
+      to_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string senderUserName = 1;</code>
+     * <code>string to = 1;</code>
      */
-    public Builder clearSenderUserName() {
+    public Builder clearTo() {
       
-      senderUserName_ = getDefaultInstance().getSenderUserName();
+      to_ = getDefaultInstance().getTo();
       onChanged();
       return this;
     }
     /**
-     * <code>string senderUserName = 1;</code>
+     * <code>string to = 1;</code>
      */
-    public Builder setSenderUserNameBytes(
+    public Builder setToBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      senderUserName_ = value;
+      to_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object from_ = "";
+    /**
+     * <code>string from = 2;</code>
+     */
+    public java.lang.String getFrom() {
+      java.lang.Object ref = from_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        from_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string from = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFromBytes() {
+      java.lang.Object ref = from_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        from_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string from = 2;</code>
+     */
+    public Builder setFrom(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      from_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string from = 2;</code>
+     */
+    public Builder clearFrom() {
+      
+      from_ = getDefaultInstance().getFrom();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string from = 2;</code>
+     */
+    public Builder setFromBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      from_ = value;
       onChanged();
       return this;
     }
 
     private java.lang.Object messageText_ = "";
     /**
-     * <code>string messageText = 2;</code>
+     * <code>string messageText = 3;</code>
      */
     public java.lang.String getMessageText() {
       java.lang.Object ref = messageText_;
@@ -541,7 +668,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string messageText = 2;</code>
+     * <code>string messageText = 3;</code>
      */
     public com.google.protobuf.ByteString
         getMessageTextBytes() {
@@ -557,7 +684,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string messageText = 2;</code>
+     * <code>string messageText = 3;</code>
      */
     public Builder setMessageText(
         java.lang.String value) {
@@ -570,7 +697,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string messageText = 2;</code>
+     * <code>string messageText = 3;</code>
      */
     public Builder clearMessageText() {
       
@@ -579,7 +706,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string messageText = 2;</code>
+     * <code>string messageText = 3;</code>
      */
     public Builder setMessageTextBytes(
         com.google.protobuf.ByteString value) {

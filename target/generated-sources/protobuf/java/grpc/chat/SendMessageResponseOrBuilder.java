@@ -16,4 +16,14 @@ public interface SendMessageResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getStatusBytes();
+
+  /**
+   * <code>string to = 2;</code>
+   */
+  java.lang.String getTo();
+  /**
+   * <code>string to = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getToBytes();
 }
