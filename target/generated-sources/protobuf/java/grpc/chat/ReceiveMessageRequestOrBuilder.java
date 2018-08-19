@@ -8,12 +8,12 @@ public interface ReceiveMessageRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string receiverUserName = 1;</code>
+   * <code>string token = 1;</code>
    */
-  java.lang.String getReceiverUserName();
+  java.lang.String getToken();
   /**
-   * <code>string receiverUserName = 1;</code>
+   * <code>string token = 1;</code>
    */
   com.google.protobuf.ByteString
-      getReceiverUserNameBytes();
+      getTokenBytes();
 }

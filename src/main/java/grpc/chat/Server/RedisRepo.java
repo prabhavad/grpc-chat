@@ -48,7 +48,7 @@ class RedisRepo {
         String[] messageString = jedis.lindex(receiver, 0).split(":", 2);
         return Message.newBuilder()
                 .setMessageText(messageString[1])
-                .setSenderUserName(messageString[0])
+                .setFrom(messageString[0])
                 .build();
     }
 

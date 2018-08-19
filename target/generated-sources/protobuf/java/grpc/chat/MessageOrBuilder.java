@@ -8,21 +8,31 @@ public interface MessageOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string senderUserName = 1;</code>
+   * <code>string to = 1;</code>
    */
-  java.lang.String getSenderUserName();
+  java.lang.String getTo();
   /**
-   * <code>string senderUserName = 1;</code>
+   * <code>string to = 1;</code>
    */
   com.google.protobuf.ByteString
-      getSenderUserNameBytes();
+      getToBytes();
 
   /**
-   * <code>string messageText = 2;</code>
+   * <code>string from = 2;</code>
+   */
+  java.lang.String getFrom();
+  /**
+   * <code>string from = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getFromBytes();
+
+  /**
+   * <code>string messageText = 3;</code>
    */
   java.lang.String getMessageText();
   /**
-   * <code>string messageText = 2;</code>
+   * <code>string messageText = 3;</code>
    */
   com.google.protobuf.ByteString
       getMessageTextBytes();

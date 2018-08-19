@@ -1,8 +1,6 @@
 package grpc.chat.Client;
 
-import grpc.chat.ChatServerGrpc;
-import grpc.chat.Request;
-import grpc.chat.Response;
+import grpc.chat.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -90,62 +88,6 @@ public class ChatClient {
 
         final ChatClient client = new ChatClient("localhost", 8980);
 
-        StreamObserver<Response> responseStreamObserver = new StreamObserver<Response>() {
-
-            public void onNext(Response response) {
-                if (response.getResponseType().equals("login")) {
-
-                    System.out.println(response.getLoginStatus());
-                    if (response.getLoginStatus().equals("Login Successful!")) {
-                        client.state.setLoggedIn(true);
-                        client.state.setToken(response.getToken());
-                        client.state.setUserName(response.getMessage());
-                    }
-
-                } else if (response.getResponseType().equals("send")) {
-
-                    if (!response.getSendingStatus().toLowerCase().contains("sent")) {
-
-                        System.out.print(response.getSendingStatus());
-                        System.out.println(" To:" + response.getMessage());
-
-                    } else {
-
-                        System.out.println(response.getSendingStatus());
-
-                    }
-
-                } else if (response.getResponseType().equals("receive")) {
-
-                    System.out.println(response.getMessageSender()+":"+response.getMessage());
-                }
-            }
-
-            public void onError(Throwable throwable) {
-                System.out.println("Error");
-            }
-
-            public void onCompleted() {
-                System.out.println("Completed");
-            }
-        };
-
-        final StreamObserver<Request> requestStreamObserver = client.asyncStub.chatting(responseStreamObserver);
-
-        Executors.newScheduledThreadPool(2).scheduleAtFixedRate(new Runnable() {
-            public void run() {
-                if (client.state.isLoggedIn()) {
-                    Request request = Request.newBuilder()
-                            .setRequestType("receive")
-                            .setFrom(client.state.getUserName())
-                            .setToken(client.state.getToken())
-                            .build();
-
-                    requestStreamObserver.onNext(request);
-                }
-            }
-        }, 0, 1, TimeUnit.SECONDS);
-
         while (true) {
 
             try {
@@ -159,7 +101,7 @@ public class ChatClient {
                         System.out.println("Password:");
                         String password = scanner.nextLine();
 
-                        client.login(userName, password, requestStreamObserver);
+                        client.login(userName, password);
                     }
 
                 } else {
@@ -167,7 +109,7 @@ public class ChatClient {
                     try {
                         String[] receiverMessageSplit = input.split(":", 2);
                         String to = receiverMessageSplit[0], message = receiverMessageSplit[1];
-                        client.sendMessage(to, message, requestStreamObserver);
+                        client.sendMessage(to, message);
                     } catch (Exception ignored){}
 
                 }
@@ -180,29 +122,52 @@ public class ChatClient {
     }
 
 
-    private void login(String userName, String password, StreamObserver<Request> streamObserver) {
+    private void login(String userName, String password) {
 
         if (state.isLoggedIn()) {
             System.out.println("Already Logged In as " + state.getUserName());
             return;
         }
 
-        streamObserver.onNext(Request.newBuilder()
-                .setRequestType("login")
-                .setUserName(userName)
-                .setPassword(password)
-                .build());
+        LoginResponse loginResponse = blockingStub.login(LoginRequest.newBuilder()
+                                                .setUserName(userName)
+                                                .setPassword(password)
+                                                .build());
+
+        System.out.println(loginResponse.getStatus());
+        if (loginResponse.getStatus().equals("Login Successful!")) {
+            state.setLoggedIn(true);
+            state.setToken(loginResponse.getToken());
+            state.setUserName(userName);
+
+            Executors.newScheduledThreadPool(2).scheduleAtFixedRate(new ReceiveMessage(asyncStub, loginResponse.getToken()), 0, 1, TimeUnit.SECONDS);
+
+        }
 
     }
 
-    private void sendMessage(String receiver, String message, StreamObserver<Request> streamObserver) {
+    private void sendMessage(String receiver, String message) {
 
-        streamObserver.onNext(Request.newBuilder()
-                .setRequestType("send")
-                .setToken(state.token)
-                .setTo(receiver)
-                .setMessage(message)
-                .build());
+
+        SendMessageRequest sendMessageRequest = SendMessageRequest.newBuilder()
+                                                            .setMessage(
+                                                                    Message.newBuilder()
+                                                                        .setMessageText(message)
+                                                                        .setTo(receiver)
+                                                                        .build())
+                                                            .setToken(state.getToken())
+                                                            .build();
+
+        SendMessageResponse sendMessageResponse = blockingStub.sendMessage(sendMessageRequest);
+
+        if (!sendMessageResponse.getStatus().toLowerCase().contains("sent")) {
+
+            System.out.print(sendMessageResponse.getStatus());
+            System.out.println(" To:" + receiver);
+
+        } else {
+            System.out.println(sendMessageResponse.getStatus());
+        }
 
     }
 

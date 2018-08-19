@@ -21,12 +21,12 @@ public interface SendMessageRequestOrBuilder extends
   grpc.chat.MessageOrBuilder getMessageOrBuilder();
 
   /**
-   * <code>string receiverUserName = 2;</code>
+   * <code>string token = 3;</code>
    */
-  java.lang.String getReceiverUserName();
+  java.lang.String getToken();
   /**
-   * <code>string receiverUserName = 2;</code>
+   * <code>string token = 3;</code>
    */
   com.google.protobuf.ByteString
-      getReceiverUserNameBytes();
+      getTokenBytes();
 }

@@ -65,21 +65,24 @@ public final class Chat {
     java.lang.String[] descriptorData = {
       "\n\nchat.proto\"2\n\014LoginRequest\022\020\n\010userName" +
       "\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\".\n\rLoginRespons" +
-      "e\022\016\n\006status\030\001 \001(\t\022\r\n\005token\030\002 \001(\t\"I\n\022Send" +
+      "e\022\016\n\006status\030\001 \001(\t\022\r\n\005token\030\002 \001(\t\">\n\022Send" +
       "MessageRequest\022\031\n\007message\030\001 \001(\0132\010.Messag" +
-      "e\022\030\n\020receiverUserName\030\002 \001(\t\"%\n\023SendMessa" +
-      "geResponse\022\016\n\006status\030\001 \001(\t\"6\n\007Message\022\026\n" +
-      "\016senderUserName\030\001 \001(\t\022\023\n\013messageText\030\002 \001" +
-      "(\t\"1\n\025ReceiveMessageRequest\022\030\n\020receiverU" +
-      "serName\030\001 \001(\t\"|\n\007Request\022\023\n\013requestType\030" +
-      "\001 \001(\t\022\014\n\004from\030\002 \001(\t\022\n\n\002to\030\003 \001(\t\022\020\n\010userN" +
-      "ame\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022\017\n\007message\030\006" +
-      " \001(\t\022\r\n\005token\030\007 \001(\t\"\203\001\n\010Response\022\025\n\rmess" +
-      "ageSender\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\025\n\rsend" +
-      "ingStatus\030\003 \001(\t\022\023\n\013loginStatus\030\004 \001(\t\022\024\n\014" +
-      "responseType\030\005 \001(\t\022\r\n\005token\030\006 \001(\t21\n\nCha" +
-      "tServer\022#\n\010Chatting\022\010.Request\032\t.Response" +
-      "(\0010\001B\r\n\tgrpc.chatP\001b\006proto3"
+      "e\022\r\n\005token\030\003 \001(\t\"1\n\023SendMessageResponse\022" +
+      "\016\n\006status\030\001 \001(\t\022\n\n\002to\030\002 \001(\t\"8\n\007Message\022\n" +
+      "\n\002to\030\001 \001(\t\022\014\n\004from\030\002 \001(\t\022\023\n\013messageText\030" +
+      "\003 \001(\t\"&\n\025ReceiveMessageRequest\022\r\n\005token\030" +
+      "\001 \001(\t\"|\n\007Request\022\023\n\013requestType\030\001 \001(\t\022\014\n" +
+      "\004from\030\002 \001(\t\022\n\n\002to\030\003 \001(\t\022\020\n\010userName\030\004 \001(" +
+      "\t\022\020\n\010password\030\005 \001(\t\022\017\n\007message\030\006 \001(\t\022\r\n\005" +
+      "token\030\007 \001(\t\"\203\001\n\010Response\022\025\n\rmessageSende" +
+      "r\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\025\n\rsendingStatu" +
+      "s\030\003 \001(\t\022\023\n\013loginStatus\030\004 \001(\t\022\024\n\014response" +
+      "Type\030\005 \001(\t\022\r\n\005token\030\006 \001(\t2\244\001\n\nChatServer" +
+      "\022&\n\005Login\022\r.LoginRequest\032\016.LoginResponse" +
+      "\0228\n\013SendMessage\022\023.SendMessageRequest\032\024.S" +
+      "endMessageResponse\0224\n\016ReceiveMessage\022\026.R" +
+      "eceiveMessageRequest\032\010.Message0\001B\r\n\tgrpc" +
+      ".chatP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -110,25 +113,25 @@ public final class Chat {
     internal_static_SendMessageRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SendMessageRequest_descriptor,
-        new java.lang.String[] { "Message", "ReceiverUserName", });
+        new java.lang.String[] { "Message", "Token", });
     internal_static_SendMessageResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_SendMessageResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SendMessageResponse_descriptor,
-        new java.lang.String[] { "Status", });
+        new java.lang.String[] { "Status", "To", });
     internal_static_Message_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Message_descriptor,
-        new java.lang.String[] { "SenderUserName", "MessageText", });
+        new java.lang.String[] { "To", "From", "MessageText", });
     internal_static_ReceiveMessageRequest_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_ReceiveMessageRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ReceiveMessageRequest_descriptor,
-        new java.lang.String[] { "ReceiverUserName", });
+        new java.lang.String[] { "Token", });
     internal_static_Request_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_Request_fieldAccessorTable = new
