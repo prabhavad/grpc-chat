@@ -4,6 +4,7 @@ import grpc.chat.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.concurrent.Executors;
@@ -159,6 +160,14 @@ public class ChatClient {
                                                                         .build())
                                                             .setToken(state.getToken())
                                                             .build();
+
+        try {
+            if (message.getBytes("UTF-8").length > 4000) {
+                System.out.println("Message in UTF-8 can't be more than 4KB");
+            }
+        } catch (UnsupportedEncodingException ignored) {
+        }
+
 
         if (!check3mIn5s()){
             System.out.println("Can't send more than 3 messages in a window of 5 seconds");
