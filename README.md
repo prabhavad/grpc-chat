@@ -3,13 +3,15 @@
 
 Run the following command:
 
-mvn clean compile package 
+Build the Docker:
+
+docker build . -t chat
 
 And:
 
-To Run Server: mvn exec:java -Dexec.mainClass="grpc.chat.ChatServer"
+To Run Server: docker run -ti -p 8980:8980 --name chatting chat s
 
-To Run Client: mvn exec:java -Dexec.mainClass="grpc.chat.ChatClient"
+To Run Client: docker exec -ti chatting bash ./run.sh c
 
 
 1. Run Client only after server starts.
