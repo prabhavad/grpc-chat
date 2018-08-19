@@ -42,6 +42,7 @@ message Request {
     string userName = 4;
     string password = 5;
     string message = 6;
+    string token = 7;
 }
 
 message Response {
@@ -50,6 +51,7 @@ message Response {
     string sendingStatus = 3;
     string loginStatus = 4;
     string responseType = 5;
+    string token = 6;
 }
 
 service ChatServer {

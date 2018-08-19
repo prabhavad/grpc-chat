@@ -56,4 +56,14 @@ public interface ResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getResponseTypeBytes();
+
+  /**
+   * <code>string token = 6;</code>
+   */
+  java.lang.String getToken();
+  /**
+   * <code>string token = 6;</code>
+   */
+  com.google.protobuf.ByteString
+      getTokenBytes();
 }

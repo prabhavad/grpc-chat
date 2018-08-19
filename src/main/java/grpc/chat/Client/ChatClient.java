@@ -1,5 +1,8 @@
-package grpc.chat;
+package grpc.chat.Client;
 
+import grpc.chat.ChatServerGrpc;
+import grpc.chat.Request;
+import grpc.chat.Response;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -7,14 +10,11 @@ import io.grpc.stub.StreamObserver;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 /**
  * Created by prabhav.a on 12/08/18.
  */
 public class ChatClient {
-
-    private static final Logger logger = Logger.getLogger(ChatClient.class.getName());
 
     private final ManagedChannel channel;
     private final ChatServerGrpc.ChatServerBlockingStub blockingStub;
@@ -98,6 +98,7 @@ public class ChatClient {
                     System.out.println(response.getLoginStatus());
                     if (response.getLoginStatus().equals("Login Successful!")) {
                         client.state.setLoggedIn(true);
+                        client.state.setToken(response.getToken());
                         client.state.setUserName(response.getMessage());
                     }
 
@@ -134,8 +135,13 @@ public class ChatClient {
         Executors.newScheduledThreadPool(2).scheduleAtFixedRate(new Runnable() {
             public void run() {
                 if (client.state.isLoggedIn()) {
-//                    System.out.println("Requesting");
-                    requestStreamObserver.onNext(Request.newBuilder().setRequestType("receive").setFrom(client.state.getUserName()).build());
+                    Request request = Request.newBuilder()
+                            .setRequestType("receive")
+                            .setFrom(client.state.getUserName())
+                            .setToken(client.state.getToken())
+                            .build();
+
+                    requestStreamObserver.onNext(request);
                 }
             }
         }, 0, 1, TimeUnit.SECONDS);
@@ -181,15 +187,22 @@ public class ChatClient {
             return;
         }
 
-        streamObserver.onNext(Request.newBuilder().setRequestType("login").setUserName(userName)
-                                                .setPassword(password).build());
+        streamObserver.onNext(Request.newBuilder()
+                .setRequestType("login")
+                .setUserName(userName)
+                .setPassword(password)
+                .build());
 
     }
 
     private void sendMessage(String receiver, String message, StreamObserver<Request> streamObserver) {
 
-        streamObserver.onNext(Request.newBuilder().setRequestType("send")
-                .setFrom(state.getUserName()).setTo(receiver).setMessage(message).build());
+        streamObserver.onNext(Request.newBuilder()
+                .setRequestType("send")
+                .setToken(state.token)
+                .setTo(receiver)
+                .setMessage(message)
+                .build());
 
     }
 

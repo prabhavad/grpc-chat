@@ -66,4 +66,14 @@ public interface RequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getMessageBytes();
+
+  /**
+   * <code>string token = 7;</code>
+   */
+  java.lang.String getToken();
+  /**
+   * <code>string token = 7;</code>
+   */
+  com.google.protobuf.ByteString
+      getTokenBytes();
 }
