@@ -3,9 +3,9 @@ package grpc.chat.Client;
 import grpc.chat.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.stub.StreamObserver;
 
 import java.util.Scanner;
+import java.util.TreeSet;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -79,6 +79,8 @@ public class ChatClient {
     }
 
     private State state = new State();
+
+    private static TreeSet<Long> threeMessagesTimes = new TreeSet<Long>();
 
 
     public static void main(String[] args) throws InterruptedException {
@@ -158,6 +160,11 @@ public class ChatClient {
                                                             .setToken(state.getToken())
                                                             .build();
 
+        if (!check3mIn5s()){
+            System.out.println("Can't send more than 3 messages in a window of 5 seconds");
+            return;
+        }
+
         SendMessageResponse sendMessageResponse = blockingStub.sendMessage(sendMessageRequest);
 
         if (!sendMessageResponse.getStatus().toLowerCase().contains("sent")) {
@@ -170,5 +177,25 @@ public class ChatClient {
         }
 
     }
+
+    private boolean check3mIn5s() {
+        Long now = System.currentTimeMillis();
+
+        if (threeMessagesTimes.size() == 3) {
+            Long oldestTime = threeMessagesTimes.first();
+            if (now - oldestTime >= 5000) {
+                threeMessagesTimes.remove(oldestTime);
+                threeMessagesTimes.add(now);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        threeMessagesTimes.add(now);
+        return true;
+
+    }
+
 
 }

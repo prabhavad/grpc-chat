@@ -21,7 +21,7 @@ public class ReceiveMessage implements Runnable {
         responseStreamObserver = new StreamObserver<Message>() {
 
             public void onNext(Message message) {
-                System.out.println(message.getFrom()+":"+message.getMessageText());
+                System.out.println("New Message From " + message.getFrom()+":"+message.getMessageText());
             }
 
             public void onError(Throwable throwable) {

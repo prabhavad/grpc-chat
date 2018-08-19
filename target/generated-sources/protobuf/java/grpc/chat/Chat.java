@@ -44,16 +44,6 @@ public final class Chat {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ReceiveMessageRequest_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_Request_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_Request_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_Response_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_Response_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -71,18 +61,11 @@ public final class Chat {
       "\016\n\006status\030\001 \001(\t\022\n\n\002to\030\002 \001(\t\"8\n\007Message\022\n" +
       "\n\002to\030\001 \001(\t\022\014\n\004from\030\002 \001(\t\022\023\n\013messageText\030" +
       "\003 \001(\t\"&\n\025ReceiveMessageRequest\022\r\n\005token\030" +
-      "\001 \001(\t\"|\n\007Request\022\023\n\013requestType\030\001 \001(\t\022\014\n" +
-      "\004from\030\002 \001(\t\022\n\n\002to\030\003 \001(\t\022\020\n\010userName\030\004 \001(" +
-      "\t\022\020\n\010password\030\005 \001(\t\022\017\n\007message\030\006 \001(\t\022\r\n\005" +
-      "token\030\007 \001(\t\"\203\001\n\010Response\022\025\n\rmessageSende" +
-      "r\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\025\n\rsendingStatu" +
-      "s\030\003 \001(\t\022\023\n\013loginStatus\030\004 \001(\t\022\024\n\014response" +
-      "Type\030\005 \001(\t\022\r\n\005token\030\006 \001(\t2\244\001\n\nChatServer" +
-      "\022&\n\005Login\022\r.LoginRequest\032\016.LoginResponse" +
-      "\0228\n\013SendMessage\022\023.SendMessageRequest\032\024.S" +
-      "endMessageResponse\0224\n\016ReceiveMessage\022\026.R" +
-      "eceiveMessageRequest\032\010.Message0\001B\r\n\tgrpc" +
-      ".chatP\001b\006proto3"
+      "\001 \001(\t2\244\001\n\nChatServer\022&\n\005Login\022\r.LoginReq" +
+      "uest\032\016.LoginResponse\0228\n\013SendMessage\022\023.Se" +
+      "ndMessageRequest\032\024.SendMessageResponse\0224" +
+      "\n\016ReceiveMessage\022\026.ReceiveMessageRequest" +
+      "\032\010.Message0\001B\r\n\tgrpc.chatP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -132,18 +115,6 @@ public final class Chat {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ReceiveMessageRequest_descriptor,
         new java.lang.String[] { "Token", });
-    internal_static_Request_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_Request_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_Request_descriptor,
-        new java.lang.String[] { "RequestType", "From", "To", "UserName", "Password", "Message", "Token", });
-    internal_static_Response_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_Response_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_Response_descriptor,
-        new java.lang.String[] { "MessageSender", "Message", "SendingStatus", "LoginStatus", "ResponseType", "Token", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
